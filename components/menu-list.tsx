@@ -23,7 +23,7 @@ const components: { title: string; href: string; description: string }[] = [
   },
   {
     title: "Aretes",
-    href: "/category/earing",
+    href: "/category/earings",
     description:
       "Aretes fabricados artesanalmente con los más finos materiales.",
   },

@@ -9,11 +9,11 @@ const ItemsMenuMobile = () => {
                 <Menu />
             </PopoverTrigger>
             <PopoverContent>
-                <Link href="/categories/earings" className="block">Aretes</Link>
-                <Link href="/categories/necklace" className="block">Collares</Link>
-                <Link href="/categories/bracelet" className="block">Pulseras</Link>
-                <Link href="/categories/ring" className="block">Anillos</Link>
-                <Link href="/categories/keyChain" className="block">Llaveros</Link>
+                <Link href="/category/earings" className="block">Aretes</Link>
+                <Link href="/category/necklace" className="block">Collares</Link>
+                <Link href="/category/bracelet" className="block">Pulseras</Link>
+                <Link href="/category/ring" className="block">Anillos</Link>
+                <Link href="/category/keyChain" className="block">Llaveros</Link>
             </PopoverContent>
         </Popover>
     );
