@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# E-commerce Platform
 
-## Getting Started
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB)
+![Next.js](https://img.shields.io/badge/Next.js-000000?logo=nextdotjs&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
+![REST API](https://img.shields.io/badge/REST%20API-005571?logo=fastapi&logoColor=white)
+![Strapi](https://img.shields.io/badge/Strapi-4945FF?logo=strapi&logoColor=white)
+![Flow.cl](https://img.shields.io/badge/Flow.cl-Payments-blue)
+![Responsive Design](https://img.shields.io/badge/Responsive-Yes-success)
+![Dark Mode](https://img.shields.io/badge/Dark%20Mode-Supported-black)
+![Project Status](https://img.shields.io/badge/Status-Near%20Complete-yellow)
 
-First, run the development server:
+Full Stack e-commerce application focused on product management and online payments, built as a personal project to practice real-world integrations and service-oriented architecture.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Tech Stack
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Frontend**
+- TypeScript
+- React
+- REST API consumption
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Backend**
+- JavaScript
+- REST API
+- Strapi (Headless CMS)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Payments**
+- Flow.cl API
 
-## Learn More
+## ✨ Features
 
-To learn more about Next.js, take a look at the following resources:
+- Product listing and order creation
+- Purchase flow integration
+- Payment processing via Flow.cl
+- Separation between frontend and backend services
+- API-based communication with Strapi
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🧱 Architecture
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Frontend application consumes two REST APIs:
+  - Product and order management via Strapi
+  - Payment processing via Flow.cl
+- Backend services are separated to keep responsibilities clear and scalable
 
-## Deploy on Vercel
+## 🔐 Backend & Security
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Backend services (Strapi API and payment integration) are hosted in separate private repositories.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+API keys and sensitive configuration are managed using environment variables and are not exposed in this repository.
+
+## 📸 Screenshots
+
+### Home Page
+- Featured products
+- Categories and promotional banners
+- Quick actions: view product details or add to cart
+
+![Home Page](./docs/images/Productos_destacados.png)
+
+### Product Details
+- Detailed product view
+- Add to cart
+- Add or remove from wishlist
+
+![Product Details](./docs/images/Producto_detallado.png)
+
+### Shopping Cart
+- View selected products
+- Remove items from cart
+- Proceed to checkout and payment
+
+![Shopping Cart](./docs/images/Carro_compras.png)
+
+### Wishlist
+- Manage loved products
+- Add products directly to cart
+- Remove products from wishlist
+
+![Wishlist](./docs/images/Loved_products.png)
+
+### UI & Responsiveness
+- Fully responsive layout for mobile, tablet, and desktop
+- Light and dark mode support
+
+![Mobile View](./docs/images/Responsivo.png)
+
+
