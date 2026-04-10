@@ -16,7 +16,7 @@ export const useLovedProduct = create(persist<UseLovedProductType>((set,get) => 
         const existingItem = currentLovedItems.find((item) => item.id === data.id)
     
         if(existingItem) {
-            return (toast.warning("El producto ya existe en el carrito"))
+            return (toast.warning("El producto ya existe en la lista de deseados"))
         }
         set({
             lovedItems: [...get().lovedItems, data]

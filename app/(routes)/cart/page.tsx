@@ -51,8 +51,9 @@ export default function Page() {
 };
 
     return (
-        <div className="max-w-6xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
-            <h1 className="mb-5 text-3xl font-bold">Shopping cart</h1>
+        <div className="w-full min-h-[120vh] py-16 bg-[url('/IMG_7482.JPG')] bg-cover bg-center bg-no-repeat">
+        <div className="max-w-6xl px-4 py-4 mx-auto sm:px-6 lg:px-8 bg-primary/70 rounded-sm">
+            <h1 className="mb-5 text-3xl font-bold text-secondary">Shopping cart</h1>
             <div className="grid sm:grid-cols-2 sm:gap-5">
                 <div >
                     {items.length === 0 && (
@@ -65,7 +66,7 @@ export default function Page() {
                     </ul>
                 </div>
                 <div className="max-w-xl">
-                    <div className="p-6 rounded-lg bg-slate-100">
+                    <div className="p-6 rounded-lg bg-slate-100/70">
                         <p className="mb-3 text-lg font-semibold dark:text-black">Order summary</p>
                         <Separator />
                         <div className="flex justify-between gap-5 my-4 dark:text-black">
@@ -79,6 +80,7 @@ export default function Page() {
 
                 </div>
             </div>
+        </div>
         </div>
     )
 }

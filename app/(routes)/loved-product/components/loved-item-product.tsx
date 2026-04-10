@@ -27,7 +27,7 @@ const LovedItemProduct = (props: lovedItemProductProps) => {
     }
 
     return (
-        <li className="flex py-6 border-b">
+        <li className="flex justify-between py-6 px-6 border border-gray-200 rounded-sm">
 
             <ProductImageMiniature slug={product.slug} url={product.images[0].url}/>
             <div>
@@ -40,7 +40,7 @@ const LovedItemProduct = (props: lovedItemProductProps) => {
             </div>
 
             <div>
-                <button className={cn("rounded-full flex items-center justify-center bg-white border shadow-md p-1 hover:scale-110 transition")}>
+                <button className={cn("rounded-full flex items-center justify-center bg-white border shadow-md p-1 hover:scale-110 transition text-black")}>
                     <X className="dark:text-black" size={20} onClick={() => removeLovedItem(product.id)}></X>
                 </button>
             </div>

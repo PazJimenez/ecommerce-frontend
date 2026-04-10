@@ -19,9 +19,9 @@ const InfoProduct = (props: InfoProductProps) => {
 
 
     return (
-        <div className="px-6">
+        <div className="px-6 py-4 bg-primary/70 text-secondary rounded-sm border border-gray-200">
             <div className="justify-between mb-3">
-                <h1 className="text-2xl">{product.productName}</h1>
+                <h1 className="text-2xl font-bold">{product.productName}</h1>
                 <div className="flex items-center justify-between gap-3">
                     <ProductColourMaterial colour={product.colour} material={product.material} />
                 </div>

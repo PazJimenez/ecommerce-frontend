@@ -27,7 +27,7 @@ const CarouselProduct = (props: CarouselProductProps) => {
                             <img 
                                 src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${image.formats.large.url}`} 
                                 alt="Image product" 
-                                className="rounded-lg" 
+                                className="rounded-lg border border-gray-200 overflow-hidden w-fit" 
                             />
                         </CarouselItem>
                     ))}

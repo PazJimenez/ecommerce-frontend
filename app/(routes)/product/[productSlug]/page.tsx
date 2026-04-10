@@ -18,7 +18,10 @@ export default function Page () {
        return <SkeletonProduct />
     }
     return (
+        <div className="w-full min-h-[120vh] bg-[url('/IMG_7484.JPG')] bg-cover bg-center bg-no-repeat">
+        
         <div className="max-w-6xl py-4 mx-auto sm:py-32 sm:px-24">
+            
             <div className="grid sm:grid-cols-2">
                 <div>
                     <CarouselProduct images={result[0].images}/>
@@ -30,6 +33,7 @@ export default function Page () {
 
             </div>
 
+        </div>
         </div>
     )
 }

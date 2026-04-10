@@ -18,14 +18,14 @@ const CartItem = (props: CartItemProps) => {
     const {removeItem} = useCart()
 
     return (
-        <li className="flex py-6 border-b">
+        <li className="flex py-6 px-6 text-secondary border border-gray-200 rounded-sm">
             <ProductImageMiniature slug={product.slug} url={product.images[0].url}/>
             <div>
 
                 <ProductColourMaterial productName={product.productName} price={product.price} colour={product.colour} material={product.material} />
             </div>
             <div>
-                <button className={cn("rounded-full flex items-center justify-center bg-white border shadow-md p-1 hover:scale-110 transition")}>
+                <button className={cn("rounded-full flex items-center justify-center bg-white border shadow-md p-1 hover:scale-110 transition text-black")}>
                     <X size={20} onClick={() => removeItem(product.id)}></X>
                 </button>
             </div>
