@@ -57,33 +57,33 @@ API keys and sensitive configuration are managed using environment variables and
 - Categories and promotional banners
 - Quick actions: view product details or add to cart
 
-![Home Page](./docs/images/Productos_destacados.png)
+![Home Page](./docs/images/Productos_destacados.png?v=2)
 
 ### Product Details
 - Detailed product view
 - Add to cart
 - Add or remove from wishlist
 
-![Product Details](./docs/images/Producto_detallado.png)
+![Product Details](./docs/images/Producto_detallado.png?v=2)
 
 ### Shopping Cart
 - View selected products
 - Remove items from cart
 - Proceed to checkout and payment
 
-![Shopping Cart](./docs/images/Carro_compras.png)
+![Shopping Cart](./docs/images/Carro_compras.png?v=2)
 
 ### Wishlist
 - Manage loved products
 - Add products directly to cart
 - Remove products from wishlist
 
-![Wishlist](./docs/images/Loved_products.png)
+![Wishlist](./docs/images/Loved_products.png?v=2)
 
 ### UI & Responsiveness
 - Fully responsive layout for mobile, tablet, and desktop
 - Light and dark mode support
 
-![Mobile View](./docs/images/Responsivo.png)
+![Mobile View](./docs/images/Responsivo.png?v=2)
 
 
