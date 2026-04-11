@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { Urbanist } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "../components/navbar";
 import Footer from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
 
-const urbanist = Urbanist({
+const poppins = Poppins({
   subsets: ["latin"],
+  weight: ["400","600","700"]
 });
 
 export const metadata: Metadata = {
@@ -22,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={urbanist.className}>
+      <body className={poppins.className}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"

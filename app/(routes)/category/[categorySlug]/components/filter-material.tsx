@@ -12,7 +12,7 @@ const FilterMaterial = (props: FilterMaterialProps) => {
     const {result, loading}: FilterTypes = useGetProductField()
 
     return (
-        <div className="my-5">
+        <div className="my-5 text-secondary border border-gray-200 rounded-sm py-4 px-4 bg-primary/70">
             <p className="mb-3 font-bold">Material</p>
             {loading && result === null && (
                 <p>Cargando material...</p>
@@ -21,7 +21,11 @@ const FilterMaterial = (props: FilterMaterialProps) => {
             <RadioGroup onValueChange={(value) => setFilterMaterial(value)}>
                 {result !== null && result.schema.attributes.material.enum.map((material: string) => (
                     <div key={material} className="flex items-center space-x-2">
-                        <RadioGroupItem value={material} id={material} />
+                        <RadioGroupItem
+                            value={material}
+                            id={material}
+                            className="data-[state=checked]:bg-chart-2 data-[state=checked]:border-chart-2"
+                            />
                         <Label htmlFor={material}>{material}</Label>
                     </div>
                 ))}

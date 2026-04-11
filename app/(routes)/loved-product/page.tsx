@@ -1,12 +1,15 @@
 "use client"
 import { useLovedProduct } from "@/hooks/use-loved-product"
 import LovedItemProduct from "./components/loved-item-product"
+import CarouselTextBanner from "@/components/carousel-text-banner"
 
 export default function Page() {
 
     const {lovedItems} = useLovedProduct()
 
     return (
+        <div>
+
         <div className="w-full min-h-[120vh] py-4 sm:py-32 bg-[url('/IMG_7475.JPG')] bg-cover bg-center bg-no-repeat">
         
         <div className="max-w-4xl mx-auto sm:px-24 text-secondary">
@@ -31,6 +34,8 @@ export default function Page() {
             </div>
             </div>
         </div>
+        </div>
+                <CarouselTextBanner/>
         </div>
     )
 }

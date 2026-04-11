@@ -3,7 +3,7 @@ import BannerProduct from "@/components/banner-product";
 import CarouselTextBanner from "@/components/carousel-text-banner";
 import ChooseCategory from "@/components/choose-category";
 import FeaturedProducts from "@/components/featured-products";
-import Image from "next/image";
+import SubscriptionForm from "@/components/subscription-form";
 
 
 export default function Home() {
@@ -14,6 +14,10 @@ export default function Home() {
       <BannerDiscount />
       <ChooseCategory />
       <BannerProduct />
+      <CarouselTextBanner />
+      <SubscriptionForm />
+      
+
     </main>
   );
 }

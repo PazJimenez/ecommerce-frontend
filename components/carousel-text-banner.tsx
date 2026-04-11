@@ -23,7 +23,7 @@ export const dataCarouselTop = [
 const CarouselTextBanner = () => {
     const router =useRouter()
     return (
-        <div className="bg-gray-200 dark:bg-primary/70">
+        <div className="bg-gray-200/70 dark:bg-black/70">
             <Carousel className="w-full max-w-4xl mx-auto"
             plugins={[
                 Autoplay({
