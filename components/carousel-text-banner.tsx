@@ -7,7 +7,7 @@ import Autoplay from "embla-carousel-autoplay";
 export const dataCarouselTop = [
     {
         id:1,
-        title:"Envío en 24/28 hrs",
+        title:"Envío en 24/48 hrs",
         description:"Como ciente VIP, tus envíos en 24/48 horas. Obtén más información y únete.",
         link:"#!"
     },

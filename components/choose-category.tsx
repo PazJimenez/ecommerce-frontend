@@ -9,8 +9,9 @@ const ChooseCategory = () => {
     const { result, loading }: ResponseType = useGetCategories()
 
     return (
+        <div>
+        <h3 className='bg-gray-200/70 dark:bg-black/70 px-6 pt-5 pb-4 text-3xl sm:pb-8 text-primary font-bold h-20 text-center'>Elige tu categoría favorita</h3>
         <div className='max-w-6xl py-4 mx-auto sm:py-16 sm:px-24'>
-            <h3 className='px-6 pb-4 text-3xl sm:pb-8 text-primary font-bold'>Elige tu categoría favorita</h3>
             <div className='grid gap-5 sm:grid-cols-5'>
                 {!loading && result !== undefined && (
                     result.map((category: CategoryType) => (
@@ -34,6 +35,7 @@ const ChooseCategory = () => {
                     ))
                 ) }
             </div>
+        </div>
         </div>
     )
 }

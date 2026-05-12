@@ -5,50 +5,20 @@ import { Separator } from "@/components/ui/separator"
 import { useCart } from "@/hooks/use-cart"
 import { formatPrice } from "@/lib/formatPrice"
 import CartItem from "./components/cart-item"
+import { useRouter } from "next/navigation"
 
 
 export default function Page() {
     const {items, removeAll} = useCart()
     const prices =items.map((product => product.price))
     const totalPrice = prices.reduce((total, price) => total + price, 0)
+    const router =useRouter()
 
 
-    const handleBuy = async () => {
-  if (items.length === 0) return;
-
-  try {
-    const response = await fetch(
-      "http://localhost:1337/api/orders/pay",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          amount: totalPrice,
-          email: "atenea_kasumi@hotmail.com",
-        }),
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Error iniciando pago");
-    }
-
-    const data = await response.json();
-
-    console.log("RESPUESTA STRAPI:", data);
-
-    removeAll();
-
-    // 🔴 Redirección al checkout Flow
-    window.location.href = data.redirectUrl;
-
-  } catch (error) {
-    console.error("Error al iniciar el pago", error);
-    alert("No se pudo iniciar el pago");
-  }
-};
+    const handleBuy = () => {
+        if (items.length === 0) return;
+        router.push("/checkout");
+    };
 
     return (
         <div className="w-full min-h-[120vh] py-16 bg-[url('/IMG_7482.JPG')] bg-cover bg-center bg-no-repeat">
