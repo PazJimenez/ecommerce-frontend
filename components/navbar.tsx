@@ -6,11 +6,21 @@ import ItemsMenuMobile from "./items-menu-mobile";
 import ToggleTheme from "./toggle-theme";
 import { useCart } from "@/hooks/use-cart";
 import { useLovedProduct } from "@/hooks/use-loved-product";
+import { useAuth } from "@/hooks/use-auth";
 
 const Navbar = () => {
     const router =useRouter()
     const cart = useCart()
     const {lovedItems} = useLovedProduct()
+    const { isAuthenticated, logout } = useAuth()
+
+    const handleUserClick = () => {
+        if (isAuthenticated) {
+            router.push("/profile")
+        } else {
+            router.push("/login")
+        }
+    }
 
     return (
         <div className="flex item-center justify-between p-4 mx-auto cursor-pointer sm:max-w-4xl md:max-w-6xl">
@@ -42,7 +52,20 @@ const Navbar = () => {
                     ${lovedItems.length > 0 && 'fill-black dark:fill-white'}`}
                     onClick={() => router.push("/loved-product")}/>
 
-                <User strokeWidth="1" className="cursor-pointer" />
+                <User
+                    strokeWidth="1"
+                    className={`cursor-pointer ${isAuthenticated && 'fill-black dark:fill-white'}`}
+                    onClick={handleUserClick}
+                />
+
+                {isAuthenticated && (
+                    <span 
+                        className="text-xs cursor-pointer underline"
+                        onClick={logout}
+                    >
+                        Salir
+                    </span>
+                )}
 
             <ToggleTheme />
             </div>

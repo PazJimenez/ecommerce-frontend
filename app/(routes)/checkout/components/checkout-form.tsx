@@ -1,18 +1,21 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useCart } from "@/hooks/use-cart"
+import { useAuth } from "@/hooks/use-auth"
 import { formatPrice } from "@/lib/formatPrice"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
+import AddressFields from "@/components/address-fields"
 
 type CheckoutStep = "form" | "login-prompt"
 
 export default function CheckoutForm() {
   const router = useRouter()
   const { items, removeAll } = useCart()
+  const { login, isAuthenticated, user, fetchMe, token  } = useAuth()
   const totalPrice = items.reduce((total, item) => total + item.price, 0)
 
   const [step, setStep] = useState<CheckoutStep>("form")
@@ -24,16 +27,44 @@ export default function CheckoutForm() {
     email: "",
     address: "",
     phone: "",
+    region: "",
+    comuna: "",
+    street: "",
     password: "",
   })
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchMe()
+    }
+  }, [])
+
+  useEffect(() => {
+    if (isAuthenticated && user) {
+        console.log("USER EN CHECKOUT:", user) // 👈
+        console.log("ADDRESS:", user.address)  // 👈
+      setForm((prev) => ({
+        ...prev,
+        name: user.username ?? prev.name,
+        email: user.email ?? prev.email,
+        phone: user.phone ?? prev.phone,
+        region: user.address?.region ?? prev.region,
+        comuna: user.address?.comuna ?? prev.comuna,
+        street: user.address?.street ?? prev.street,
+      }))
+    }
+  }, [isAuthenticated, user])
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
+    const handleAddressChange = (field: string, value: string) => {
+      setForm((prev) => ({ ...prev, [field]: value }))
+    }
 
   // Cuando el email pierde el foco, verificamos si ya existe
   const handleEmailBlur = async () => {
-    if (!form.email) return
+    if (!form.email || isAuthenticated) return
 
     try {
       const res = await fetch(
@@ -48,6 +79,7 @@ export default function CheckoutForm() {
       // Si falla la verificación, dejamos seguir como invitado
     }
   }
+  
 
   // Iniciar sesión y rellenar datos automáticamente
   const handleLogin = async () => {
@@ -55,46 +87,50 @@ export default function CheckoutForm() {
     setError("")
 
     try {
-      const res = await fetch("http://localhost:1337/api/auth/local", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          identifier: form.email,
-          password: form.password,
-        }),
-      })
+      await login(form.email, form.password)
+      await fetchMe()
 
-      const data = await res.json()
+      const updatedUser = useAuth.getState().user
 
-      if (!res.ok) {
+        // Rellenar datos desde el perfil del usuario
+        if (updatedUser) {
+          setForm((prev) => ({
+            ...prev,
+            name: updatedUser.username ?? prev.name,
+            email: updatedUser.email ?? prev.email,
+            phone: updatedUser.phone ?? prev.phone,
+            region: updatedUser.address?.region ?? prev.region,
+            comuna: updatedUser.address?.comuna ?? prev.comuna,
+            street: updatedUser.address?.street ?? prev.street,
+          }))
+        }
+
+        setStep("form")
+      } catch {
         setError("Contraseña incorrecta")
+      } finally {
         setLoading(false)
-        return
       }
-
-      // Rellenar datos automáticamente desde el perfil
-      setForm((prev) => ({
-        ...prev,
-        name: data.user.username ?? prev.name,
-        address: data.user.address ?? prev.address,
-      }))
-
-      setStep("form")
-    } catch {
-      setError("Error al iniciar sesión")
-    } finally {
-      setLoading(false)
-    }
   }
 
-  // Continuar como invitado
-  const handleGuestContinue = () => {
-    setStep("form")
-  }
+  
+
 
   // Enviar el pago
   const handleSubmit = async () => {
-    if (!form.name || !form.email || !form.address || !form.phone) {
+
+  console.log("ENVIANDO A PAY:", {
+    amount: totalPrice,
+    email: form.email,
+    name: form.name,
+    phone: form.phone,
+    address: {
+      region: form.region,
+      comuna: form.comuna,
+      street: form.street,
+    },
+  })
+    if (!form.name || !form.email || !form.phone || !form.region || !form.comuna || !form.street) {
       setError("Por favor completa todos los campos")
       return
     }
@@ -110,12 +146,17 @@ export default function CheckoutForm() {
     try {
       const res = await fetch("http://localhost:1337/api/orders/pay", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", 
+          ...(token && { Authorization: `Bearer ${token}` }), },
         body: JSON.stringify({
           amount: totalPrice,
           email: form.email,
           name: form.name,
-          address: form.address,
+          address: {
+            region: form.region,
+            comuna: form.comuna,
+            street: form.street,
+          },
           phone: form.phone,
         }),
       })
@@ -166,7 +207,7 @@ export default function CheckoutForm() {
               <Button onClick={handleLogin} disabled={loading} className="flex-1">
                 {loading ? "Iniciando..." : "Iniciar sesión"}
               </Button>
-              <Button variant="outline" onClick={handleGuestContinue} className="flex-1">
+              <Button variant="outline" onClick={() => setStep("form")} className="flex-1">
                 Continuar como invitado
               </Button>
             </div>
@@ -194,14 +235,6 @@ export default function CheckoutForm() {
               className="bg-white"
             />
             <Input
-              type="text"
-              name="address"
-              placeholder="Dirección de envío"
-              value={form.address}
-              onChange={handleChange}
-              className="bg-white"
-            />
-            <Input
                 type="tel"
                 name="phone"
                 placeholder="Teléfono de contacto"
@@ -209,6 +242,16 @@ export default function CheckoutForm() {
                 onChange={handleChange}
                 className="bg-white"
                 />
+            <p className="font-semibold">Dirección de envío</p>
+            <Separator />
+
+            <AddressFields
+              region={form.region}
+              comuna={form.comuna}
+              street={form.street}
+              onChange={handleAddressChange}
+            />
+
             {error && <p className="text-red-500 text-sm">{error}</p>}
             <Button
               onClick={handleSubmit}
