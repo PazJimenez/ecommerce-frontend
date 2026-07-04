@@ -16,7 +16,7 @@ export default function CheckoutForm() {
   const router = useRouter()
   const { items, removeAll } = useCart()
   const { login, isAuthenticated, user, fetchMe, token  } = useAuth()
-  const totalPrice = items.reduce((total, item) => total + item.price, 0)
+  const totalPrice = items.reduce((total, item) => total + item.product.price * item.quantity, 0)
 
   const [step, setStep] = useState<CheckoutStep>("form")
   const [loading, setLoading] = useState(false)
@@ -158,10 +158,19 @@ export default function CheckoutForm() {
             street: form.street,
           },
           phone: form.phone,
+          items: items.map((item) => ({   // 👈
+            productId: item.product.id,
+            quantity: item.quantity,
+            unitPrice: item.product.price,
+          })),
         }),
       })
 
-      if (!res.ok) throw new Error("Error iniciando pago")
+    if (!res.ok) {
+      const errorData = await res.json()
+      setError(errorData?.error?.message ?? "No se pudo iniciar el pago") // 👈
+      return
+    }
 
       const data = await res.json()
       window.location.href = data.redirectUrl

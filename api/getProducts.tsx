@@ -9,7 +9,7 @@ export function useGetCategories() {
     useEffect(() => {
         (async () => {
             try {
-                const res = await fetch(url)
+                const res = await fetch(url, { cache: 'no-store' })
                 const json = await res.json()
                 setResult(json.data)
                 setLoading(false)

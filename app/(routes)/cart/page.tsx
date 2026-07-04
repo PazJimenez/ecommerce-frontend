@@ -9,9 +9,8 @@ import { useRouter } from "next/navigation"
 
 
 export default function Page() {
-    const {items, removeAll} = useCart()
-    const prices =items.map((product => product.price))
-    const totalPrice = prices.reduce((total, price) => total + price, 0)
+    const {items} = useCart()
+    const totalPrice = items.reduce((total, item) => total + item.product.price * item.quantity, 0)
     const router =useRouter()
 
 
@@ -30,19 +29,23 @@ export default function Page() {
                         <p>No hay productos en el carrito</p>
                     )}
                     <ul>
-                        {items.map((item) => (
-                            <CartItem key={item.id} product={item}/>
-                        ))}
+                    {items.map((item) => (
+                        <CartItem key={item.product.id} product={item.product} quantity={item.quantity} />
+                    ))}
                     </ul>
                 </div>
                 <div className="max-w-xl">
                     <div className="p-6 rounded-lg bg-slate-100/90">
                         <p className="mb-3 text-lg font-semibold dark:text-black">Order summary</p>
                         <Separator />
-                        <div className="flex justify-between gap-5 my-4 dark:text-black">
-                            <p>Order total</p>
-                            <p>{formatPrice(totalPrice)}</p>
-                        </div>
+                            {/* Detalle por producto */}
+                            {items.map((item) => (
+                                <div key={item.product.id} className="flex justify-between gap-5 my-2 text-sm dark:text-black">
+                                <p>{item.product.productName} x{item.quantity}</p>
+                                <p>{formatPrice(item.product.price * item.quantity)}</p>
+                                </div>
+                            ))}
+                        <Separator />
                         <div className="flex items-center justify-center w-full mt-3">
                             <Button className="w-full text-secondary" onClick={handleBuy}>Comprar</Button>
                         </div>

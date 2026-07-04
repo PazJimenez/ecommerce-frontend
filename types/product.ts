@@ -8,6 +8,7 @@ export type ProductType = {
     material: string;
     colour: string;
     price: number;
+    stock: number;
     images: {
         id: number,
         url: string
